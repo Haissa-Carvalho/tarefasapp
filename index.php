@@ -1,3 +1,21 @@
+<?php
+require ('funcoes.php');
+
+if ($_POST ['acao'] == "adicionar")
+{
+	criarTarefa($_POST['cont']);
+}
+else if ($_POST ['acao'] == "concluida")
+{
+		concluir($_POST ['Codigo']);
+}
+else if ($_POST['acao'] == "delete")
+{
+	excluir ($_POST ['Codigo']);
+}
+$tarefas = buscarcontador();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +37,7 @@
 		<a href="#" class="navbar-brand">Tarefas</a>
 	</nav>
 	<main class="container">
-
+	<?php foreach ($tarefas as $c): ?>
 		<!-- lista de tarefas cadastradas -->
 
 		<div class="card mb-3">
@@ -30,7 +48,7 @@
 			<div class="card-footer text-right">
 				
 				<form action="index.php" method="post">
-
+					<input type="hidden" name="Codigo" value="<?= $c['Codigo']  ?>"> 
 					<!-- dica: colocar um input hidden aqui -->
 
 					<button type="submit" name="acao" value="excluir" class="btn btn-link btn-excluir">
